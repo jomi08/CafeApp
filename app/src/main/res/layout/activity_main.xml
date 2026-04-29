@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5E6D3"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="28dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="☕"
+        android:textSize="56sp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cafe Co."
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="#3E2723"
+        android:layout_marginBottom="4dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign in to continue"
+        android:textSize="14sp"
+        android:textColor="#8D6E63"
+        android:layout_marginBottom="28dp"/>
+
+    <!-- Toggle buttons: Login / Register -->
+    <LinearLayout
+        android:id="@+id/toggleGroup"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/input_bg"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:id="@+id/tabLogin"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Login"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/btn_primary"/>
+
+        <TextView
+            android:id="@+id/tabRegister"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Register"
+            android:textSize="14sp"
+            android:textColor="#8D6E63"
+            android:background="@android:color/transparent"/>
+
+    </LinearLayout>
+
+    <!-- Name (always visible) -->
+    <EditText
+        android:id="@+id/nameInput"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:hint="Your name"
+        android:inputType="textPersonName"
+        android:background="@drawable/input_bg"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:textColor="#3E2723"
+        android:textColorHint="#BCAAA4"
+        android:layout_marginBottom="12dp"/>
+
+    <!-- Email (only for Register) -->
+    <EditText
+        android:id="@+id/emailInput"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:hint="Email address"
+        android:inputType="textEmailAddress"
+        android:background="@drawable/input_bg"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:textColor="#3E2723"
+        android:textColorHint="#BCAAA4"
+        android:layout_marginBottom="12dp"
+        android:visibility="gone"/>
+
+    <!-- Phone (always visible) -->
+    <EditText
+        android:id="@+id/phoneInput"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:hint="Phone number"
+        android:inputType="phone"
+        android:background="@drawable/input_bg"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:textColor="#3E2723"
+        android:textColorHint="#BCAAA4"
+        android:layout_marginBottom="24dp"/>
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:text="Login"
+        android:textSize="16sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/btn_primary"/>
+
+</LinearLayout>
