@@ -24,12 +24,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         sp = getSharedPreferences("UserData", MODE_PRIVATE)
 
-        // Always force login page on start — remove auto-login skip
-        sp.edit().putBoolean("isLoggedIn", false).commit()
+        // If arriving here from logout, isLoggedIn is already false via commit()
+        // This check only auto-skips login if genuinely still logged in
+        if (sp.getBoolean("isLoggedIn", false)) {
+            goToHome()
+            return
+        }
+
+        setContentView(R.layout.activity_main)
 
         nameInput   = findViewById(R.id.nameInput)
         emailInput  = findViewById(R.id.emailInput)

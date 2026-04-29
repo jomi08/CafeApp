@@ -5,7 +5,9 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,16 +30,8 @@ class HomeActivity : AppCompatActivity() {
 
         cartBadge = findViewById(R.id.cartBadge)
 
-        // ── Logout ── works whether btnLogout is a Button or TextView in XML
-        findViewById<View>(R.id.btnLogout).setOnClickListener {
-            sp.edit().clear().commit()
-            getSharedPreferences("Cart", MODE_PRIVATE).edit().clear().commit()
-            val intent = Intent(this, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
-                    Intent.FLAG_ACTIVITY_NEW_TASK or
-                    Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-            finish()
+        findViewById<Button>(R.id.btnLogout).setOnClickListener {
+            showLogoutDialog()
         }
 
         val menu = listOf(
@@ -62,6 +56,43 @@ class HomeActivity : AppCompatActivity() {
         findViewById<View>(R.id.cartIconFrame).setOnClickListener {
             startActivity(Intent(this, CartActivity::class.java))
         }
+    }
+
+    private fun showLogoutDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Logout")
+            .setMessage("Are you sure you want to logout?")
+            .setPositiveButton("Yes, Logout") { dialog, _ ->
+                dialog.dismiss()
+                performLogout()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setCancelable(false)
+            .show()
+    }
+
+    private fun performLogout() {
+        // 1. Clear login state synchronously
+        sp.edit()
+            .putBoolean("isLoggedIn", false)
+            .remove("loggedInName")
+            .commit()
+
+        // 2. Clear cart synchronously
+        getSharedPreferences("Cart", MODE_PRIVATE)
+            .edit()
+            .putString("cart_items", "[]")
+            .commit()
+
+        // 3. Navigate to MainActivity and wipe back stack
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                Intent.FLAG_ACTIVITY_NEW_TASK or
+                Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
     }
 
     override fun onResume() {
